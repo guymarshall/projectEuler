@@ -123,24 +123,21 @@ fn largest_palindrome_product() {
  * What is the smallest positive number that is evenly divisible by all the numbers from 1 to 20?
  */
 fn smallest_multiple() {
-    // def is_divisible_by(number: int, limit: int) -> bool:
-    //     for i in range(2, limit + 1):
-    //         if number % i != 0:
-    //             return False
+    let is_divisible_by =
+        |number: i32, limit: i32| -> bool { (2..=limit).all(|i| number.rem(i) == 0) };
 
-    //     return True
+    const LIMIT: i32 = 20;
+    let mut number_found: bool = false;
+    let mut counter: i32 = 1;
 
-    // def main():
-    //     limit: int = 20
-    //     number_found: bool = False
-    //     counter: int = 1
-
-    //     while not number_found:
-    //         if is_divisible_by(counter, limit):
-    //             number_found = True
-    //             print(counter)
-    //         else:
-    //             counter += 1
+    while !number_found {
+        if is_divisible_by(counter, LIMIT) {
+            number_found = true;
+            println!("Smallest multiple: {}", counter);
+        } else {
+            counter += 1;
+        }
+    }
 }
 
 /**
