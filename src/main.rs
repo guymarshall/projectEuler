@@ -1,6 +1,10 @@
 #![forbid(unsafe_code)]
 
-use std::{collections::HashSet, fs, ops::Rem};
+use std::{
+    collections::HashSet,
+    fs,
+    ops::{Range, Rem},
+};
 
 /**
  * 1 - Multiples of 3 or 5
@@ -241,19 +245,23 @@ fn largest_product_in_a_series() {
  * Find the product abc.
  */
 fn special_pythagorean_triplet() {
-    // def main():
-    //     pythagorean_triplets: list = []
+    'outer: for a in 1..1000 {
+        for b in 1..1000 {
+            for c in 1..1000 {
+                let is_pythagorean_triplet: bool =
+                    (i32::pow(a, 2)) + (i32::pow(b, 2)) == (i32::pow(c, 2));
 
-    //     for a in range(1, 1000):
-    //         for b in range(1, 1000):
-    //             for c in range(1, 1000):
-    //                 is_pythagorean_triplet: bool = (a ** 2) + (b ** 2) == (c ** 2)
+                if is_pythagorean_triplet {
+                    let total: i32 = a + b + c;
 
-    //                 if is_pythagorean_triplet:
-    //                     total = a + b + c
-
-    //                     if total == 1000:
-    //                         print(a * b * c)
+                    if total == 1000 {
+                        println!("Product where total is 1000: {}", a * b * c);
+                        break 'outer;
+                    }
+                }
+            }
+        }
+    }
 }
 
 /**
