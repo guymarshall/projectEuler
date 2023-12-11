@@ -1,5 +1,7 @@
 #![forbid(unsafe_code)]
 
+use std::collections::HashSet;
+
 /**
  * 1 - Multiples of 3 or 5
  *
@@ -8,11 +10,13 @@
  * Find the sum of all the multiples of 3 or 5 below 1000.
  */
 fn multiples_of_3_or_5() {
-    // limit = 1000
-    // multiples_of_3 = {number * 3 for number in range(limit + 1) if number * 3 < limit}
-    // multiples_of_5 = {number * 5 for number in range(limit + 1) if number * 5 < limit}
-    // sum_of_multiples = sum(multiples_of_3 | multiples_of_5)
-    // print(sum_of_multiples)
+    const LIMIT: i32 = 1000;
+
+    let multiples_of_3: HashSet<i32> = (0..LIMIT).filter(|&number| number % 3 == 0).collect();
+    let multiples_of_5: HashSet<i32> = (0..LIMIT).filter(|&number| number % 5 == 0).collect();
+
+    let sum_of_multiples: i32 = multiples_of_3.union(&multiples_of_5).sum();
+    println!("Sum: {}", sum_of_multiples)
 }
 
 /**
@@ -34,14 +38,13 @@ fn even_fibonacci_numbers() {
 
     //     return fibonacci_numbers
 
-
     // def main():
     //     fibonacci_numbers = generate_fibonacci_numbers(4_000_000)
     //     even_fibonacci_sum = sum(number for number in fibonacci_numbers if number % 2 == 0)
     //     print(even_fibonacci_sum)
 }
 
- /**
+/**
  * 3 - Largest Prime Factor
  *
  * The prime factors of 13195 are 5, 7, 13 and 29.
@@ -52,7 +55,6 @@ fn largest_prime_factor() {
     //     ceiling_root: int = math.ceil(math.sqrt(input_number))
     //     return [number for number in range(2, ceiling_root) if input_number % number == 0]
 
-
     // def is_prime(input_number: int) -> bool:
     //     ceiling_root: int = math.ceil(math.sqrt(input_number))
     //     for i in range(2, ceiling_root):
@@ -61,7 +63,6 @@ fn largest_prime_factor() {
 
     //     return True
 
-
     // def main():
     //     number: int = 600_851_475_143
     //     factors: list = generate_factors(number)
@@ -69,7 +70,7 @@ fn largest_prime_factor() {
     //     print(max(prime_factors))
 }
 
- /**
+/**
  * 4 - Largest Palindrome Product
  *
  * A palindromic number reads the same both ways. The largest palindrome made from the product of
@@ -79,7 +80,6 @@ fn largest_prime_factor() {
 fn largest_palindrome_product() {
     // def is_a_palindrome(input_string: str) -> bool:
     //     return input_string == input_string[::-1]
-
 
     // def main():
     //     number_of_digits = 3
@@ -97,7 +97,7 @@ fn largest_palindrome_product() {
     //     print(largest_palindrome)
 }
 
- /**
+/**
  * 5 - Smallest Multiple
  *
  * 2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.
@@ -110,7 +110,6 @@ fn smallest_multiple() {
     //             return False
 
     //     return True
-
 
     // def main():
     //     limit: int = 20
@@ -125,7 +124,7 @@ fn smallest_multiple() {
     //             counter += 1
 }
 
- /**
+/**
  * 6 - Sum Square Difference
  *
  * The sum of the squares of the first ten natural numbers is,
@@ -144,7 +143,7 @@ fn sum_square_difference() {
     //     print(difference)
 }
 
- /**
+/**
  * 7 - 10001st Prime
  *
  * By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see the 6th prime is 13.
@@ -159,7 +158,6 @@ fn find_10001st_prime() {
     //             return False
 
     //     return True
-
 
     // def main():
     //     primes = []
@@ -178,7 +176,7 @@ fn find_10001st_prime() {
     //     print(primes.pop())
 }
 
- /**
+/**
  * 8 - Largest Product in a Series
  *
  * The four adjacent digits in the 1000-digit number that have the greatest product are 9 x 9 x 8 x 9 = 5832.
@@ -214,7 +212,7 @@ fn largest_product_in_a_series() {
     //     print(largest_product)
 }
 
- /**
+/**
  * 9 - Special Pythagorean Triplet
  *
  * A Pythagorean triplet is a set of three natural numbers, a < b < c, for which,
@@ -239,7 +237,7 @@ fn special_pythagorean_triplet() {
     //                         print(a * b * c)
 }
 
- /**
+/**
  * 10 - Summation of Primes
  *
  * The sum of the primes below 10 is 2 + 3 + 5 + 7 = 17.
@@ -257,7 +255,6 @@ fn summation_of_primes() {
     //             return False
 
     //     return True
-
 
     // def main():
     //     start: int = 2
