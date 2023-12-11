@@ -1,6 +1,6 @@
 #![forbid(unsafe_code)]
 
-use std::collections::HashSet;
+use std::{collections::HashSet, ops::Rem};
 
 /**
  * 1 - Multiples of 3 or 5
@@ -29,19 +29,28 @@ fn multiples_of_3_or_5() {
  * find the sum of the even-valued terms.
  */
 fn even_fibonacci_numbers() {
-    // def generate_fibonacci_numbers(maximum: int) -> list:
-    //     fibonacci_numbers = []
-    //     first, second = 1, 2
-    //     while first < maximum:
-    //         fibonacci_numbers.append(first)
-    //         first, second = second, first + second
+    let generate_fibonacci_numbers = |maximum: i32| {
+        let mut fibonacci_numbers: Vec<i32> = vec![];
 
-    //     return fibonacci_numbers
+        let mut first: i32 = 1;
+        let mut second: i32 = 2;
 
-    // def main():
-    //     fibonacci_numbers = generate_fibonacci_numbers(4_000_000)
-    //     even_fibonacci_sum = sum(number for number in fibonacci_numbers if number % 2 == 0)
-    //     print(even_fibonacci_sum)
+        while first < maximum {
+            fibonacci_numbers.push(first);
+            let temp: i32 = second;
+            second += first;
+            first = temp;
+        }
+
+        fibonacci_numbers
+    };
+
+    let fibonacci_numbers: Vec<i32> = generate_fibonacci_numbers(4_000_000);
+    let even_fibonacci_sum: i32 = fibonacci_numbers
+        .iter()
+        .filter(|number| number.rem(2) == 0)
+        .sum();
+    println!("Even fibonacci sum: {}", even_fibonacci_sum);
 }
 
 /**
