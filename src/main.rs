@@ -152,11 +152,10 @@ fn smallest_multiple() {
  * Find the difference between the sum of the squares of the first one hundred natural numbers and the square of the sum.
  */
 fn sum_square_difference() {
-    // def main():
-    //     sum_of_squares = sum([number ** 2 for number in range(1, 101)])
-    //     square_of_sum = sum([number for number in range(1, 101)]) ** 2
-    //     difference = square_of_sum - sum_of_squares
-    //     print(difference)
+    let sum_of_squares: i32 = (1..101).map(|number| i32::pow(number, 2)).sum();
+    let square_of_sum: i32 = i32::pow((1..101).sum(), 2);
+    let difference: i32 = square_of_sum - sum_of_squares;
+    println!("Difference: {}", difference);
 }
 
 /**
