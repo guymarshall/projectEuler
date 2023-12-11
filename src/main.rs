@@ -94,23 +94,26 @@ fn largest_prime_factor() {
  * Find the largest palindrome made from the product of two 3-digit numbers.
  */
 fn largest_palindrome_product() {
-    // def is_a_palindrome(input_string: str) -> bool:
-    //     return input_string == input_string[::-1]
+    let is_a_palindrome = |input_string: String| -> bool {
+        input_string == input_string.chars().rev().collect::<String>()
+    };
 
-    // def main():
-    //     number_of_digits = 3
-    //     maximum_number = 10 ** number_of_digits
-    //     largest_palindrome = 0
+    const NUMBER_OF_DIGITS: i32 = 3;
+    let maximum_number: i32 = f64::powi(10.0, NUMBER_OF_DIGITS) as i32;
+    let mut largest_palindrome: i32 = 0;
 
-    //     for i in range(maximum_number):
-    //         for j in range(maximum_number):
-    //             product = i * j
-    //             is_palindromic = is_a_palindrome(str(product))
+    for i in 0..maximum_number {
+        for j in 0..maximum_number {
+            let product: i32 = i * j;
+            let is_palindromic: bool = is_a_palindrome(product.to_string());
 
-    //             if is_palindromic and product > largest_palindrome:
-    //                 largest_palindrome = product
+            if is_palindromic && product > largest_palindrome {
+                largest_palindrome = product;
+            }
+        }
+    }
 
-    //     print(largest_palindrome)
+    println!("Largest palindrome: {}", largest_palindrome);
 }
 
 /**
