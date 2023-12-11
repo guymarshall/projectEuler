@@ -1,6 +1,6 @@
 #![forbid(unsafe_code)]
 
-use std::{collections::HashSet, ops::Rem};
+use std::{collections::HashSet, fs, ops::Rem};
 
 /**
  * 1 - Multiples of 3 or 5
@@ -197,32 +197,38 @@ fn find_10001st_prime() {
  * What is the value of this product?
  */
 fn largest_product_in_a_series() {
-    // def main():
-    //     with open('8_large_number.txt', mode='r') as file:
-    //         large_number_string: str = file.read()
+    let large_number_string: String =
+        fs::read_to_string("8_large_number.txt").expect("Failed to read file");
 
-    //     largest_product: int = 0
-    //     number_of_digits: int = 13
+    let mut largest_product: i64 = 0;
+    let number_of_digits: usize = 13;
 
-    //     start_index: int = 0
-    //     end_index: int = (start_index + number_of_digits) - 1
+    let mut start_index: usize = 0;
+    let mut end_index: usize = start_index + number_of_digits - 1;
 
-    //     while end_index < len(large_number_string):
-    //         product: int = int(large_number_string[start_index])
+    while end_index < large_number_string.len() {
+        let mut product: i64 = 1;
 
-    //         temp_index = start_index + 1
+        (start_index..=end_index).for_each(|i| {
+            let digit: i64 = large_number_string
+                .chars()
+                .nth(i)
+                .unwrap()
+                .to_digit(10)
+                .unwrap() as i64;
 
-    //         while temp_index <= end_index:
-    //             product *= int(large_number_string[temp_index])
-    //             temp_index += 1
+            product *= digit;
+        });
 
-    //         if product > largest_product:
-    //             largest_product = product
+        if product > largest_product {
+            largest_product = product;
+        }
 
-    //         start_index += 1
-    //         end_index += 1
+        start_index += 1;
+        end_index += 1;
+    }
 
-    //     print(largest_product)
+    println!("Largest product: {}", largest_product);
 }
 
 /**
