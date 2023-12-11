@@ -98,8 +98,8 @@ fn largest_palindrome_product() {
         input_string == input_string.chars().rev().collect::<String>()
     };
 
-    const NUMBER_OF_DIGITS: i32 = 3;
-    let maximum_number: i32 = f64::powi(10.0, NUMBER_OF_DIGITS) as i32;
+    const NUMBER_OF_DIGITS: u32 = 3;
+    let maximum_number: i32 = i32::pow(10, NUMBER_OF_DIGITS);
     let mut largest_palindrome: i32 = 0;
 
     for i in 0..maximum_number {
