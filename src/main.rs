@@ -60,23 +60,30 @@ fn even_fibonacci_numbers() {
  * What is the largest prime factor of the number 600851475143?
  */
 fn largest_prime_factor() {
-    // def generate_factors(input_number: int) -> list:
-    //     ceiling_root: int = math.ceil(math.sqrt(input_number))
-    //     return [number for number in range(2, ceiling_root) if input_number % number == 0]
+    let generate_factors = |input_number: i64| -> Vec<i64> {
+        let ceiling_root: i64 = f64::ceil(f64::sqrt(input_number as f64)) as i64;
+        (2..ceiling_root)
+            .filter(|number| input_number.rem(number) == 0)
+            .collect()
+    };
 
-    // def is_prime(input_number: int) -> bool:
-    //     ceiling_root: int = math.ceil(math.sqrt(input_number))
-    //     for i in range(2, ceiling_root):
-    //         if input_number % i == 0:
-    //             return False
+    let is_prime = |input_number: &i64| -> bool {
+        let ceiling_root: i64 = f64::ceil(f64::sqrt(*input_number as f64)) as i64;
+        (2..ceiling_root).all(|number| input_number % number != 0)
+    };
 
-    //     return True
-
-    // def main():
-    //     number: int = 600_851_475_143
-    //     factors: list = generate_factors(number)
-    //     prime_factors = [number for number in factors if is_prime(number)]
-    //     print(max(prime_factors))
+    const NUMBER: i64 = 600_851_475_143;
+    let factors: Vec<i64> = generate_factors(NUMBER);
+    let prime_factors: Vec<i64> = factors
+        .iter()
+        .filter(|number| is_prime(number))
+        .cloned()
+        .collect();
+    println!(
+        "Largest prime factor of {}: {}",
+        NUMBER,
+        prime_factors.iter().max().unwrap()
+    );
 }
 
 /**
