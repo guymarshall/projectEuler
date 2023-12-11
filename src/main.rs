@@ -165,30 +165,28 @@ fn sum_square_difference() {
  * What is the 10001st prime number?
  */
 fn find_10001st_prime() {
-    // def is_prime(number: int) -> bool:
-    //     ceiling_root = math.ceil(math.sqrt(number))
+    let is_prime = |number: i32| -> bool {
+        let ceiling_root: i32 = f64::ceil(f64::sqrt(number as f64)) as i32;
 
-    //     for i in range(2, ceiling_root + 1):
-    //         if number % i == 0:
-    //             return False
+        (2..=ceiling_root).all(|i| number % i != 0)
+    };
 
-    //     return True
+    let mut primes: Vec<i32> = vec![];
+    let mut prime_count: i32 = 0;
+    let mut number: i32 = 2;
 
-    // def main():
-    //     primes = []
-    //     prime_count = 0
-    //     number = 2
+    while prime_count < 10000 {
+        let is_prime_number: bool = is_prime(number);
 
-    //     while prime_count < 10000:
-    //         is_prime_number = is_prime(number)
+        if is_prime_number {
+            primes.push(number);
+            prime_count += 1;
+        }
 
-    //         if is_prime_number:
-    //             primes.append(number)
-    //             prime_count += 1
+        number += 1;
+    }
 
-    //         number += 1
-
-    //     print(primes.pop())
+    println!("10001st prime number: {}", primes.last().unwrap());
 }
 
 /**
