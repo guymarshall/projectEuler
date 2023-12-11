@@ -1,10 +1,6 @@
 #![forbid(unsafe_code)]
 
-use std::{
-    collections::HashSet,
-    fs,
-    ops::{Range, Rem},
-};
+use std::{collections::HashSet, fs, ops::Rem};
 
 /**
  * 1 - Multiples of 3 or 5
@@ -271,25 +267,22 @@ fn special_pythagorean_triplet() {
  * Find the sum of all the primes below two million.
  */
 fn summation_of_primes() {
-    // def is_prime(number: int) -> bool:
-    //     if number == 2:
-    //         return True
+    let is_prime = |number: i64| -> bool {
+        if number == 2 {
+            return true;
+        }
 
-    //     ceiling_root: int = math.ceil(math.sqrt(number))
+        let ceiling_root: i64 = f64::ceil(f64::sqrt(number as f64)) as i64;
 
-    //     for i in range(2, ceiling_root + 1):
-    //         if number % i == 0:
-    //             return False
+        (2..=ceiling_root).all(|i| number % i != 0)
+    };
 
-    //     return True
+    const START: i64 = 2;
+    const FINISH: i64 = 2_000_000;
 
-    // def main():
-    //     start: int = 2
-    //     finish: int = 2_000_000
+    let primes_below_limit: Vec<i64> = (START..FINISH).filter(|number| is_prime(*number)).collect();
 
-    //     primes_below_limit: list = [number for number in range(start, finish) if is_prime(number)]
-
-    //     print(sum(primes_below_limit))
+    println!("Sum: {}", primes_below_limit.iter().sum::<i64>());
 }
 
 fn main() {
