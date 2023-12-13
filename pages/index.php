@@ -122,22 +122,29 @@ function largestPalindromeProduct(int $numberOfDigits): int {
  * 2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.
  * What is the smallest positive number that is evenly divisible by all the numbers from 1 to 20?
  */
-function smallestMultiple() {
-//    let is_divisible_by =
-//        |number: i32, limit: i32| -> bool { (2..=limit).all(|i| number.rem(i) == 0) };
-//
-//    const LIMIT: i32 = 20;
-//    let mut number_found: bool = false;
-//    let mut counter: i32 = 1;
-//
-//    while !number_found {
-//        if is_divisible_by(counter, LIMIT) {
-//        number_found = true;
-//        println!("Smallest multiple: {}", counter);
-//        } else {
-//            counter += 1;
-//        }
-//    }
+function smallestMultiple(int $limit): int {
+    $isDivisibleBy = function(int $number, int $limit): bool {
+        for ($i = 2; $i <= $limit; $i++) {
+            if ($number % $i !== 0) {
+                return false;
+            }
+        }
+
+        return true;
+    };
+
+    $numberFound = false;
+    $counter = 1;
+
+    while (!$numberFound) {
+        if ($isDivisibleBy($counter, $limit)) {
+            break;
+        } else {
+            $counter++;
+        }
+    }
+
+    return $counter;
 }
 
 /**
@@ -289,8 +296,8 @@ consoleLog(multiplesOf3Or5(1_000));
 consoleLog(evenFibonacciNumbers(4_000_000));
 consoleLog(largestPrimeFactor(600_851_475_143));
 consoleLog(largestPalindromeProduct(3));
+consoleLog(smallestMultiple(20));
 
-smallestMultiple();
 sumSquareDifference();
 find10001stPrime(); // prefixed with find_ to stop Rust complaining
 largestProductInASeries();
