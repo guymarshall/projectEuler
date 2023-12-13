@@ -158,11 +158,13 @@ function smallestMultiple(int $limit): int {
  * 3025 - 385 = 2640.
  * Find the difference between the sum of the squares of the first one hundred natural numbers and the square of the sum.
  */
-function sumSquareDifference() {
-//    let sum_of_squares: i32 = (1..101).map(|number| i32::pow(number, 2)).sum();
-//    let square_of_sum: i32 = i32::pow((1..101).sum(), 2);
-//    let difference: i32 = square_of_sum - sum_of_squares;
-//    println!("Difference: {}", difference);
+function sumSquareDifference(int $limit): int {
+    $range = range(1, $limit);
+    $sumOfSquares = array_sum(array_map(function($number) {
+        return pow($number, 2);
+    }, $range));
+    $squareOfSum = pow(array_sum($range), 2);
+    return $squareOfSum - $sumOfSquares;
 }
 
 /**
@@ -297,8 +299,8 @@ consoleLog(evenFibonacciNumbers(4_000_000));
 consoleLog(largestPrimeFactor(600_851_475_143));
 consoleLog(largestPalindromeProduct(3));
 consoleLog(smallestMultiple(20));
+consoleLog(sumSquareDifference(100));
 
-sumSquareDifference();
 find10001stPrime(); // prefixed with find_ to stop Rust complaining
 largestProductInASeries();
 specialPythagoreanTriplet();
