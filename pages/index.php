@@ -173,29 +173,35 @@ function sumSquareDifference(int $limit): int {
  * By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see the 6th prime is 13.
  * What is the 10001st prime number?
  */
-function find10001stPrime() {
-//    let is_prime = |number: i32| -> bool {
-//        let ceiling_root: i32 = f64::ceil(f64::sqrt(number as f64)) as i32;
-//
-//        (2..=ceiling_root).all(|i| number % i != 0)
-//    };
+function find10001stPrime(int $input): int {
+    $isPrime = function(int $number): bool {
+        $ceilingRoot = ceil(sqrt($number));
 
-//    let mut primes: Vec<i32> = vec![];
-//    let mut prime_count: i32 = 0;
-//    let mut number: i32 = 2;
-//
-//    while prime_count < 10000 {
-//        let is_prime_number: bool = is_prime(number);
-//
-//        if is_prime_number {
-//            primes.push(number);
-//            prime_count += 1;
-//        }
-//
-//        number += 1;
-//    }
-//
-//    println!("10001st prime number: {}", primes.last().unwrap());
+        for ($i = 2; $i <= $ceilingRoot; $i++) {
+            if ($number % $i === 0) {
+                return false;
+            }
+        }
+
+        return true;
+    };
+
+    $primes = [];
+    $primeCount = 0;
+    $number = 2;
+
+    while ($primeCount < $input) {
+        $isPrimeNumber = $isPrime($number);
+
+        if ($isPrimeNumber) {
+            $primes[] = $number;
+            $primeCount++;
+        }
+
+        $number++;
+    }
+
+    return end($primes);
 }
 
 /**
@@ -300,8 +306,8 @@ consoleLog(largestPrimeFactor(600_851_475_143));
 consoleLog(largestPalindromeProduct(3));
 consoleLog(smallestMultiple(20));
 consoleLog(sumSquareDifference(100));
+consoleLog(find10001stPrime(10000)); // prefixed with find_ to stop Rust complaining
 
-find10001stPrime(); // prefixed with find_ to stop Rust complaining
 largestProductInASeries();
 specialPythagoreanTriplet();
 summationOfPrimes();
