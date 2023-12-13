@@ -94,27 +94,26 @@ function largestPrimeFactor(int $number) {
  * two 2-digit numbers is 9009 = 91 x 99.
  * Find the largest palindrome made from the product of two 3-digit numbers.
  */
-function largestPalindromeProduct() {
-//    let is_a_palindrome = |input_string: String| -> bool {
-//        input_string == input_string.chars().rev().collect::<String>()
-//    };
-//
-//    const NUMBER_OF_DIGITS: u32 = 3;
-//    let maximum_number: i32 = i32::pow(10, NUMBER_OF_DIGITS);
-//    let mut largest_palindrome: i32 = 0;
-//
-//    for i in 0..maximum_number {
-//        for j in 0..maximum_number {
-//            let product: i32 = i * j;
-//            let is_palindromic: bool = is_a_palindrome(product.to_string());
-//
-//            if is_palindromic && product > largest_palindrome {
-//                largest_palindrome = product;
-//            }
-//        }
-//    }
-//
-//    println!("Largest palindrome: {}", largest_palindrome);
+function largestPalindromeProduct(int $numberOfDigits): int {
+    $isAPalindrome = function(string $inputString): bool {
+        return $inputString === strrev($inputString);
+    };
+
+    $maximumNumber = pow(10, $numberOfDigits);
+    $largestPalindrome = 0;
+
+    for ($i = 0; $i < $maximumNumber; $i++) {
+        for ($j = 0; $j < $maximumNumber; $j++) {
+            $product = $i * $j;
+            $isPalindromic = $isAPalindrome((string)$product);
+
+            if ($isPalindromic && $product > $largestPalindrome) {
+                $largestPalindrome = $product;
+            }
+        }
+    }
+
+    return $largestPalindrome;
 }
 
 /**
@@ -289,8 +288,8 @@ function summationOfPrimes() {
 consoleLog(multiplesOf3Or5(1_000));
 consoleLog(evenFibonacciNumbers(4_000_000));
 consoleLog(largestPrimeFactor(600_851_475_143));
+consoleLog(largestPalindromeProduct(3));
 
-largestPalindromeProduct();
 smallestMultiple();
 sumSquareDifference();
 find10001stPrime(); // prefixed with find_ to stop Rust complaining
