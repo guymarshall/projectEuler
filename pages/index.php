@@ -9,14 +9,13 @@ require_once 'functions.php';
  * The sum of these multiples is 23.
  * Find the sum of all the multiples of 3 or 5 below 1000.
  */
-function multiplesOf3Or5(): int {
-    $limit = 1000;
+function multiplesOf3Or5(int $limit): int {
     $numbers = range(0, $limit - 1);
     $multiplesOf3 = array_filter($numbers, function($number) {
-        return $number % 3 == 0;
+        return $number % 3 === 0;
     });
     $multiplesOf5 = array_filter($numbers, function($number) {
-        return $number % 5 == 0;
+        return $number % 5 === 0;
     });
     $multiplesOf3And5 = array_unique(array_merge($multiplesOf3, $multiplesOf5));
 
@@ -32,29 +31,28 @@ function multiplesOf3Or5(): int {
  * By considering the terms in the Fibonacci sequence whose values do not exceed four million,
  * find the sum of the even-valued terms.
  */
-function evenFibonacciNumbers() {
-//    let generate_fibonacci_numbers = |maximum: i32| {
-//        let mut fibonacci_numbers: Vec<i32> = vec![];
-//
-//        let mut first: i32 = 1;
-//        let mut second: i32 = 2;
-//
-//        while first < maximum {
-//            fibonacci_numbers.push(first);
-//            let temp: i32 = second;
-//            second += first;
-//            first = temp;
-//        }
-//
-//        fibonacci_numbers
-//    };
-//
-//    let fibonacci_numbers: Vec<i32> = generate_fibonacci_numbers(4_000_000);
-//    let even_fibonacci_sum: i32 = fibonacci_numbers
-//    .iter()
-//    .filter(|number| number.rem(2) == 0)
-//        .sum();
-//    println!("Even fibonacci sum: {}", even_fibonacci_sum);
+function evenFibonacciNumbers(int $maximum): int {
+    $generateFibonacciNumbers = function(int $maximum) {
+        $fibonacciNumbers = [];
+
+        $first = 1;
+        $second = 2;
+
+        while ($first < $maximum) {
+            $fibonacciNumbers[] = $first;
+            $temp = $second;
+            $second += $first;
+            $first = $temp;
+        }
+
+
+        return $fibonacciNumbers;
+    };
+
+    $fibonacciNumbers = $generateFibonacciNumbers($maximum);
+    return array_sum(array_filter($fibonacciNumbers, function($number) {
+        return $number % 2 === 0;
+    }));
 }
 
 /**
@@ -289,8 +287,9 @@ function summationOfPrimes() {
 //    println!("Sum: {}", primes_below_limit.iter().sum::<i64>());
 }
 
-consoleLog(multiplesOf3Or5());
-evenFibonacciNumbers();
+consoleLog(multiplesOf3Or5(1_000));
+consoleLog(evenFibonacciNumbers(4_000_000));
+
 largestPrimeFactor();
 largestPalindromeProduct();
 smallestMultiple();
