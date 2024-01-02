@@ -1,6 +1,6 @@
 #![forbid(unsafe_code)]
 
-use actix_web::{web, App, HttpResponse, HttpServer};
+use actix_web::{get, web, App, HttpResponse, HttpServer, Responder};
 use problems::{
     even_fibonacci_numbers, find_10001st_prime, largest_palindrome_product, largest_prime_factor,
     largest_product_in_a_series, multiples_of_3_or_5, smallest_multiple,
@@ -8,6 +8,27 @@ use problems::{
 };
 
 mod problems;
+
+#[get("/")]
+async fn index() -> impl Responder {
+    HttpResponse::Ok().body(
+        "
+        <title>Project Euler Problems</title>
+        <ul>
+            <li><a href=\"1\">1 - Multiples of 3 or 5</a></li>
+            <li><a href=\"2\">2 - Even Fibonacci Numbers</a></li>
+            <li><a href=\"3\">3 - Largest Prime Factor</a></li>
+            <li><a href=\"4\">4 - Largest Palindrome Product</a></li>
+            <li><a href=\"5\">5 - Smallest Multiple</a></li>
+            <li><a href=\"6\">6 - Sum Square Difference</a></li>
+            <li><a href=\"7\">7 - 10001st Prime</a></li>
+            <li><a href=\"8\">8 - Largest Product in a Series</a></li>
+            <li><a href=\"9\">9 - Special Pythagorean Triplet</a></li>
+            <li><a href=\"10\">10 - Summation of Primes</a> </li>
+        </ul>
+    ",
+    )
+}
 
 async fn problem(info: web::Path<u32>) -> HttpResponse {
     match info.into_inner() {
@@ -27,8 +48,12 @@ async fn problem(info: web::Path<u32>) -> HttpResponse {
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    HttpServer::new(|| App::new().route("/{number}", web::get().to(problem)))
-        .bind("127.0.0.1:8080")?
-        .run()
-        .await
+    HttpServer::new(|| {
+        App::new()
+            .service(index)
+            .route("/{number}", web::get().to(problem))
+    })
+    .bind("127.0.0.1:8080")?
+    .run()
+    .await
 }
